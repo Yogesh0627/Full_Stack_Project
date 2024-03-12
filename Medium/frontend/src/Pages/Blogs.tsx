@@ -34,6 +34,9 @@ const Blogs = () => {
         <Navbar/>
       </div>
 
+      <div>
+        
+      </div>
       <div className="flex justify-center">
 
           <div className="max-w-xl  gap-6">

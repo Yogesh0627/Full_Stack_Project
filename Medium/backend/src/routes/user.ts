@@ -4,6 +4,7 @@ import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { signInBody, signUpBody } from '@yogesh0627/medium-common'
 import { sign,verify,decode } from 'hono/jwt'
+import { Context } from 'hono/jsx'
 
 export const userRouter = new Hono<{
     Bindings:{
@@ -73,6 +74,31 @@ export const userRouter = new Hono<{
     }
   })
   
-  userRouter.get("/",(c)=>{
+  userRouter.delete("/delete",async (c)=>{
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+      }).$extends(withAccelerate())
+
+    const ack = await prisma.user.deleteMany()
+    console.log(ack)
+    return c.text("done")
+  })
+
+  userRouter.get("/:userId",async (c)=>{
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+      }).$extends(withAccelerate())
+
+    try {
+      const userId = c.req.params
+      const result = await prisma.user.findFirst({
+        where:{
+          id:userId
+        }
+      })
+    } catch (error) {
+      
+    }
     return c.text("working fine")
   })
+

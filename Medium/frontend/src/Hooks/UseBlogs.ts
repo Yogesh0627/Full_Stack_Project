@@ -5,7 +5,9 @@ import axios from "axios"
 export interface Blog {
     "content": string;
     "title": string;
-    "id": string
+    "id": string,
+    "authorId":string,
+    "published"?:boolean
     "author": {
         "name": string
     }
@@ -61,4 +63,30 @@ export const useBlog = ({id}:{id:string})=>{
 
     return {loading,blog}
 
+}
+
+
+
+export const useMyBlogs = ()=>{
+    const [myblogs,setMyBlogs] = useState<Blog[]>([])
+    const [loading,setLoading] = useState(false)
+
+    useEffect(()=>{
+        setLoading(true)
+        const response = axios.get(`${BACKEND_URL}/blog/myblogs`,{
+          headers : {
+              // Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoYXVoYW55b2dlc2g5NTBAZ21haWwuY29tIiwiaWQiOiJlZDA0ZGQxNi00YTEwLTRiMzctYmQwMi1jMTY2OTkyMGM0ZTAifQ.Gb_7pimB1QjyuA6fIFLS66h8NmCIMxRRbR_AaA9D340"
+              Authorization : "Bearer"+" "+localStorage.getItem("token")
+          }
+          
+      }).then(response=>{
+          console.log("response",response)
+          setMyBlogs(response.data.result)
+          setLoading(false)
+      })
+    
+        console.log(response)
+      },[])
+
+      return {myblogs,loading,setMyBlogs}
 }

@@ -26,7 +26,7 @@ const BlogCard = ({authorName,id,title,publishedDate ,content}:BlogCardProps) =>
             <p>{title}</p>
         </div>
         <div className='text-md font-normal mt-1'>
-            <p>{content}</p>
+            <p>{content.length>100 ? content.substring(0,100)+"...":content}</p>
         </div>
 
         <div className='font-normal mt-4 text-gray-400 text-sm'>

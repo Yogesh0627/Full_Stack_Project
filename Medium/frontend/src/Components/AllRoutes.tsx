@@ -6,6 +6,10 @@ import Blog from '../Pages/Blog'
 import Blogs from '../Pages/Blogs'
 import Publish from '../Pages/Publish'
 import PrivateRouter from './PrivateRouter'
+import MyBlogs from '../Pages/MyBlogs'
+
+
+
 
 const AllRoutes:React.FC = () => {
   return (
@@ -14,6 +18,7 @@ const AllRoutes:React.FC = () => {
             <Route path='/signup' element={<SignUp/>} />
             <Route path='/signin' element={<SignIn/>} />
             <Route path='/blogs' element={<PrivateRouter><Blogs/></PrivateRouter>} />
+            <Route path='/blogs/myblogs' element={<PrivateRouter><MyBlogs/></PrivateRouter>} />
             <Route path='/blogs/:id' element={<PrivateRouter><Blog/></PrivateRouter>} />
             <Route path='/publish' element={<PrivateRouter><Publish/></PrivateRouter>} />
         </Routes>

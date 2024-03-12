@@ -6,6 +6,7 @@ import Navbar from '../Components/Navbar'
 import { Spinner } from '../Components/Spinner'
 
 
+
 const Blog:React.FC = () => {
   const {id} = useParams()
   const {loading,blog} = useBlog({id: id || ""})
@@ -23,7 +24,12 @@ const Blog:React.FC = () => {
   }
   return (
     <div>
+
       <SingleBlog blog={blog}/>
+      <div>
+        <div className='w-10' title='Delete'></div>
+        <div className='w-10' title='Delete'></div>
+      </div>
     </div>
   )
 }
