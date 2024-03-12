@@ -2,8 +2,8 @@ name = "backend"
 compatibility_date = "2023-12-01"
 
 [vars]
-DATABASE_URL="Your Connection pool String"
-Jwt_Secret = "Your Jwt Secret Key"
+DATABASE_URL="YOUR-CONNECTION-POOL-STRING"
+Jwt_Secret = "YOUR-SECRET-KEY"
 
 # [vars]
 # MY_VARIABLE = "production_value"
