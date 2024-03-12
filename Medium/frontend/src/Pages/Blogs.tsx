@@ -8,9 +8,9 @@ import Skeleton from "../Components/Skeleton"
 
 const Blogs = () => {
   const {loading,blogs} = useBlogs()
+  // const {userDetails} = useUserDetails()
 
-
-  
+  // console.log("userDetails from blogs",userDetails)
   if (loading) {
     return <div>
         <Navbar /> 

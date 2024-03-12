@@ -197,6 +197,7 @@ blogRouter.use('/*',async (c,next)=>{
           title : true,
           id : true,
           authorId:true,
+          published:true,
           author:{
             select : {
               name : true

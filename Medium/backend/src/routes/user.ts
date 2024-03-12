@@ -4,12 +4,15 @@ import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { signInBody, signUpBody } from '@yogesh0627/medium-common'
 import { sign,verify,decode } from 'hono/jwt'
-import { Context } from 'hono/jsx'
+
 
 export const userRouter = new Hono<{
     Bindings:{
       DATABASE_URL:string,
       Jwt_Secret:string
+    },
+    Variables:{
+      // userId:string
     }
   }>()
 
@@ -32,8 +35,10 @@ export const userRouter = new Hono<{
           name:body.name
         }
       })
-    
+      
+      // c.set("userId",result.id)
       const token = await sign({email:result.email,id:result.id},c.env.Jwt_Secret)
+      
       console.log(result)
       console.log("token is :-",token)
       return c.json({status:true,result,token})
@@ -65,9 +70,8 @@ export const userRouter = new Hono<{
          c.status(403) 
         return c.json({status:false,msg:"user doesn't exist"})
       }
-    
+      // c.set("userId",result.id)
       const token = await sign({email:result.email,id:result.id},c.env.Jwt_Secret)
-    
       return c.json({status:true,msg:"Signin Successfully",result,token})
     } catch (error) {
       return c.json({status:false, msg:"Some Error Occured"})
@@ -84,21 +88,27 @@ export const userRouter = new Hono<{
     return c.text("done")
   })
 
-  userRouter.get("/:userId",async (c)=>{
-    const prisma = new PrismaClient({
-      datasourceUrl: c.env.DATABASE_URL,
-      }).$extends(withAccelerate())
+  // userRouter.get("/",async (c)=>{
+  //   const prisma = new PrismaClient({
+  //     datasourceUrl: c.env.DATABASE_URL,
+  //     }).$extends(withAccelerate())
 
-    try {
-      const userId = c.req.params
-      const result = await prisma.user.findFirst({
-        where:{
-          id:userId
-        }
-      })
-    } catch (error) {
-      
-    }
-    return c.text("working fine")
-  })
+  //   try {
+  //     const userId = c.get("userId")
+  //     console.log(userId,"from router.get")
+  //     const result = await prisma.user.findUnique({
+  //       where:{
+  //         id:userId
+  //       }
+  //     })
+
+  //     if (result){
+  //       return c.json({status:true,msg:"User Found",result})
+  //     }
+  //     else{return c.json({status:false, msg:"user not found"})}
+  //   } catch (error) {
+  //    return c.json({status:false,msg:"Some Error Occured"}) 
+  //   }
+
+  // })
 

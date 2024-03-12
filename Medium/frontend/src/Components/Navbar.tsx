@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import Avatar from "./Avatar"
 import { useContext } from "react"
 import { AuthContext } from "../Context/AuthContext"
@@ -7,7 +7,7 @@ import { AuthContext } from "../Context/AuthContext"
 const Navbar = () => {
 
     const{Logout} = useContext(AuthContext)
-
+    
     return (
     <div>
         <div>
@@ -21,11 +21,13 @@ const Navbar = () => {
                 </div>
                 <div className="flex justify-center items-center gap-3">
                     <Link to={"/blogs/myblogs"}>My Blogs</Link>
-                    <Link to={`/publish`}>
-                        <button type="button" className="mr-4 text-white bg-green-700 hover:bg-green-800 
-                        focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm 
-                        px-5 py-2.5 text-center me-2 mb-2 ">New</button>
-                    </Link>
+                    <NavLink to={`/publish`}  >
+                            {({ isActive }) => (
+                                <button type="button" className={`mr-4 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ${isActive ? 'hidden' : ''}`}>
+                                    New
+                                </button>
+                            )}
+                        </NavLink>
                     <Avatar name="Yogesh" size="large"/>
                     <button onClick={Logout} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Sign Out</button>
                 </div>

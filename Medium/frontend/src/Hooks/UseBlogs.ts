@@ -41,9 +41,19 @@ export const useBlogs  = ()=>{
     return {loading,blogs}
 }
 
+const intialState={
+    "content": "",
+    "title": "",
+    "id": "",
+    "authorId":"",
+    "published":true || false,
+    "author": {
+        "name": ""
+    }
+}
 export const useBlog = ({id}:{id:string})=>{
     const [loading,setLoading] = useState(false)
-    const [blog,setBlog]= useState<Blog>()
+    const [blog,setBlog]= useState<Blog>(intialState)
 
     useEffect( ()=>{
         setLoading(true)
@@ -61,8 +71,9 @@ export const useBlog = ({id}:{id:string})=>{
         
     },[id])
 
-    return {loading,blog}
 
+    return {loading,blog,setBlog}
+    
 }
 
 
@@ -90,3 +101,27 @@ export const useMyBlogs = ()=>{
 
       return {myblogs,loading,setMyBlogs}
 }
+
+interface User{
+    id   :string,
+    email :string,
+    password :string, 
+    name    :string,
+    posts  :  []
+}
+export const useUserDetails = ()=>{
+    const [userDetails,setUserDetails] = useState<User>()
+    const [loading,setLoading] = useState<boolean>(false)
+
+    useEffect(()=>{
+        setLoading(true)
+        axios.get(`${BACKEND_URL}/user`).then((response)=>{
+            console.log(response)
+            setUserDetails(response.data.result)
+            setLoading(false)
+        })
+    },[])
+    return {loading,userDetails}
+}
+
+// 293f71a9-1bba-4719-97dd-36c5f97f43e7
