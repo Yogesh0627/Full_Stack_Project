@@ -4,8 +4,7 @@ interface DeleteProps{
   onClick :  (blogId:string)=> void
 }
 const Delete = ({blogId,onClick}:DeleteProps) => {
-  
-  console.log(onClick)
+
   return (
     <div>
         <svg onClick={()=>onClick(blogId)} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" className='w-full h-full hover:cursor-pointer' viewBox="0 0 100 100">

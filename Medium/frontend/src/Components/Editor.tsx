@@ -15,14 +15,9 @@ interface Publish{
 }
 
 const Editor = ({handleTitleChange,handleTextChange,onClick,buttonTitle,saveClick,type,titleValue,contentValue}:Publish) => {
-  if (type === "new"){
-    console.log("New from editor")
-  }
-  if(type != "new"){
-    console.log("published blog from editor")
-  }
+
   return (
-    <div>
+    <div className='px-5'>
       <div>
       <Navbar />
       <div className="flex justify-center w-full pt-8"> 
@@ -35,7 +30,7 @@ const Editor = ({handleTitleChange,handleTextChange,onClick,buttonTitle,saveClic
               {buttonTitle}
         </button>
       {type === "new" ?  <button onClick={saveClick} type="submit" className="mt-4 ml-10 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-              Save
+              Draft
         </button> :''}
       </div>
   </div>

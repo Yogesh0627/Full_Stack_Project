@@ -8,18 +8,20 @@ import Delete from '../Components/Delete'
 import { BACKEND_URL } from '../config'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 const MyBlogs = () => {
 
   const {myblogs,loading,setMyBlogs}= useMyBlogs()
-  const [nonPublish, setNonPublish] = useState<boolean>(false)
+
   const [Publish, setPublish] = useState<boolean>(true)
 
   const navigate = useNavigate()
-  console.log(myblogs)
 
+  useEffect(()=>{
+    document.title = "Medium"
+  },[])
   if (loading) {
     return <div>
         <Navbar /> 
@@ -37,24 +39,23 @@ const MyBlogs = () => {
 
   
   if(myblogs.length === 0 ){
-    return <div><Navbar/><h1>No Blog Found</h1></div>
+    return <div><Navbar/><div className='flex mt-10 justify-center items-center text-5xl'><h1>No Blogs Found</h1></div></div>
   }
   
   const handleUpdate = (id:string)=>{
 
-    console.log("handle update called",id)
     navigate(`update/${id}`)
   }
   const handleDelete = async (blogId:string)=>{
-    console.log(blogId)
-    console.log("handleDelete Called form my blog")
+
+
     try {
       const response = await axios.delete(`${BACKEND_URL}/blog/${blogId}`,{
         headers:{
           Authorization : "Bearer"+" "+localStorage.getItem("token")
         }
       })
-      console.log("response after delte :-",response)
+      // console.log("response after delte :-",response)
       if(response.data.status === true){
         const myNewBlogs = myblogs.filter((blog) => blog.id !== blogId)
         setMyBlogs(myNewBlogs)
@@ -111,30 +112,36 @@ const MyBlogs = () => {
       </div>
     </div>
   ));
+const handlePublish=()=>{
+
+  setPublish(true)
+
+}
 const handleNonPublish=()=>{
-  setPublish(!Publish)
-  setNonPublish(!nonPublish)
+
+  setPublish(false)
+  // setNonPublish(!nonPublish)
 }
 
 return (
-  <div>
+  <div className=''>
     <div>
-    <Navbar/>
+      <Navbar/>
     </div>
 
-    <div className='flex'>
-      <div className='w-1/2'>
-        <button disabled={Publish === true} onClick={handleNonPublish} className='hover:cursor-pointer'><h1 >Published Blogs </h1></button>
-        <div  className={`${Publish? "block":"hidden" } `}>
-          {publishedBlogs}
+    <div className='flex justify-center px-4   items-center gap-10 mt-10'>
+      <button disabled={Publish} className='rounded-lg bg-black text-white px-2 py-3 cursor-pointer' onClick={handlePublish}>Published Blogs</button>
+      <span>||</span>
+      <button disabled={!Publish}  className='rounded-lg bg-black text-white px-2 py-3 cursor-pointer' onClick={handleNonPublish}>Non - Published Blogs</button>
+    </div>
+
+    <div className='flex justify-center   mt-4 items-center'>
+        <div className='max-w-xl'>
+          <h1 className='text-3xl p-5 font-semibold mt-6'>{Publish? "Published Blogs":"Non-Published Blogs"}</h1>
+          <div className='mt-5  '>
+            {Publish? publishedBlogs:nonPublishedBlogs}
+          </div>
         </div>
-      </div>
-      <div className='w-1/2'>
-      <button disabled={nonPublish === true} onClick={handleNonPublish} className='hover:cursor-pointer'><h1 >Non -Published Blogs </h1></button>
-        <div className={`${nonPublish? "block":"hidden" } `}>
-          {nonPublishedBlogs}
-        </div>
-      </div>
     </div>
   </div>
   )

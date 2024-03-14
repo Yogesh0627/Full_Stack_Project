@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useBlog } from '../Hooks/UseBlogs'
 import { useParams } from 'react-router-dom'
 import SingleBlog from '../Components/SingleBlog'
@@ -11,6 +11,10 @@ const Blog:React.FC = () => {
   const {id} = useParams()
   const {loading,blog} = useBlog({id: id || ""})
 
+
+  useEffect(()=>{
+    document.title = blog?.title
+  })
   if(loading || !blog){
     return <div>
       <Navbar />

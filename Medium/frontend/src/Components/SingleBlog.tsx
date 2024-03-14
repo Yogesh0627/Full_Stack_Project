@@ -4,7 +4,7 @@ import Avatar from './Avatar'
 import Navbar from './Navbar'
 
 const SingleBlog = ({blog}:{blog:Blog}) => {
-    console.log(blog)
+
     return <div>
         <Navbar />
     <div className="flex justify-center">

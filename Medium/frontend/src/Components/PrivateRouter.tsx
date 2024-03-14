@@ -10,7 +10,7 @@ const PrivateRouter: React.FC<PrivateRouterProps> = ({ children }) => {
   const { isAuth } = useContext(AuthContext);
 
   if (!isAuth) {
-    return <Navigate to={"/signin"} />;
+    return <Navigate to={"/"} />;
   }
 
   return <>{children}</>;

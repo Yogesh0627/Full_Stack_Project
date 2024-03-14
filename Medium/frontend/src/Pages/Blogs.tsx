@@ -2,15 +2,17 @@ import BlogCard from "../Components/BlogCard"
 import { useBlogs } from "../Hooks/UseBlogs"
 import Navbar from "../Components/Navbar"
 import Skeleton from "../Components/Skeleton"
+import { useEffect } from "react"
 
 
 
 
 const Blogs = () => {
   const {loading,blogs} = useBlogs()
-  // const {userDetails} = useUserDetails()
 
-  // console.log("userDetails from blogs",userDetails)
+  useEffect(()=>{
+    document.title = "Medium"
+  })
   if (loading) {
     return <div>
         <Navbar /> 
@@ -25,9 +27,9 @@ const Blogs = () => {
         </div>
     </div>
 }
+  const newBlogs  = blogs.slice().reverse()
 
-
-  const allBlogs = blogs.map((blog)=> <BlogCard key={blog.id} id={blog.id} title={blog.title} content={blog.content} authorName={blog.author.name || "Anonymous"} publishedDate="Jan 01, 2024" />)
+  const allBlogs = newBlogs.map((blog)=> <BlogCard key={blog.id} id={blog.id} title={blog.title} content={blog.content} authorName={blog.author.name || "Anonymous"} publishedDate="Jan 01, 2024" />)
   return ( 
     <div>
       <div className="border-b border-slate-200">
@@ -39,23 +41,8 @@ const Blogs = () => {
       </div>
       <div className="flex justify-center">
 
-          <div className="max-w-xl  gap-6">
+          <div className="max-w-xl m-auto mt-10  gap-6">
             {allBlogs}
-            <BlogCard title="How an Ugly Single-Page Website Makes $5,000 a Month with Affiliate Marketing" 
-            content="No need to create a fancy and modern website with hundreds of pages to make money online . -- Making money online is the dream for man..."
-            authorName="hter V."
-            id="a"
-            publishedDate="Dec 3, 2023"/>
-            <BlogCard title="How an Ugly Single-Page Website Makes $5,000 a Month with Affiliate Marketing" 
-            content="No need to create a fancy and modern website with hundreds of pages to make money online . -- Making money online is the dream for man..."
-            id="b"
-            authorName="hter V."
-            publishedDate="Dec 3, 2023"/>
-            <BlogCard title="How an Ugly Single-Page Website Makes $5,000 a Month with Affiliate Marketing" 
-            content="No need to create a fancy and modern website with hundreds of pages to make money online . -- Making money online is the dream for man..."
-            id="c"
-            authorName="hter V."
-            publishedDate="Dec 3, 2023"/>
         </div>
       </div>
     </div>

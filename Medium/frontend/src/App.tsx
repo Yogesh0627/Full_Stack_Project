@@ -1,10 +1,11 @@
 
+
 import AllRoutes from './Components/AllRoutes'
 
-// import './App.css'
+
+
 
 function App() {
-
 
   return (
     <>

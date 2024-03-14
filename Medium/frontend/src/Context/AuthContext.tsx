@@ -7,6 +7,7 @@ interface AuthContextType {
     Logout: () => void;
   }
 
+
 const initialContext = {
     isAuth:false,
     Login: () => {},
@@ -17,18 +18,22 @@ export const AuthContext = createContext<AuthContextType>(initialContext);
 export const AuthContextProvider = ({ children }:{children:ReactNode}) => {
   const [isAuth, setIsAuth] = useState<boolean>(false);
 
+ 
+
   const Login = (token:string) => {
     localStorage.setItem("token", token);
     setIsAuth(true);
   };
 
+  
   const Logout = () => {
-    console.log(isAuth, "from Logout");
+
     localStorage.removeItem("token");
     setIsAuth(false);
-    return <Navigate to="/signin" />;
+    return <Navigate to="/" />;
 
   };
+
 
   return (
     <AuthContext.Provider value={{ isAuth, Login, Logout }}>

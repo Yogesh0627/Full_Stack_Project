@@ -1,4 +1,4 @@
-import  { ChangeEvent, useState } from 'react'
+import  { ChangeEvent, useEffect, useState } from 'react'
 
 import axios from 'axios'
 import { BACKEND_URL } from '../config'
@@ -11,10 +11,13 @@ const initialState = {
   title : "",
   content : ""
 }
+
 const Publish = () => {
   const [publishBlog , setPublishBlog] = useState<blogInput>(initialState)
   const navigate = useNavigate()
-  
+  useEffect(()=>{
+    document.title = "New Story - Medium"
+  },[])
   const handleChange = (e: ChangeEvent<HTMLInputElement>)=>{
 
     setPublishBlog({...publishBlog, title : e.target.value})
@@ -24,7 +27,7 @@ const Publish = () => {
     setPublishBlog({...publishBlog, content : e.target.value})
   }
 
-  console.log(publishBlog)
+
   const publishBlogRequest = async ()=>{
     try {
       const response = await axios.post(`${BACKEND_URL}/blog`, publishBlog, {

@@ -11,7 +11,7 @@ interface BlogCardProps{
 const BlogCard = ({authorName,id,title,publishedDate ,content}:BlogCardProps) => {
   return (
     <Link to={`/blogs/${id}`}>
-        <div className='border-b border-slate-200  py-4'>
+        <div className='border-b  px-8  py-4'>
         <div className='flex gap-2'>
             <div className='flex items-center justify-center'><Avatar name={authorName}/></div>
             <div className='flex gap-2 items-center'>

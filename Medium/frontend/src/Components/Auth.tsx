@@ -5,6 +5,7 @@ import { signInBody, } from "@yogesh0627/medium-common"
 import axios from "axios"
 import { BACKEND_URL } from "../config"
 import { AuthContext } from "../Context/AuthContext"
+import { UserContext } from "../Context/UserContext"
 
 
 const postInputs = {
@@ -15,6 +16,7 @@ const postInputs = {
 const Auth = ({type}:{type: "signup" | "signin"}) => {
     const [inputs,setInputs] = useState<signInBody>(postInputs)
     const navigate = useNavigate()
+    const {handleUser} = useContext(UserContext)
 
     const {Login} = useContext(AuthContext)
 
@@ -25,12 +27,13 @@ const Auth = ({type}:{type: "signup" | "signin"}) => {
     const SignupRequest = async ()=>{
         try {
             const response = await axios.post(`${BACKEND_URL}${type==="signup" ? "/user/signup":"/user/signin"}`,inputs)
-            console.log(response)
+
             if (response.data.status === true){
-                console.log(response.data)
+
             const token = response.data.token
-            console.log(token)
+            
             Login(token)
+            handleUser(response.data.result)
             navigate("/blogs")
             setInputs(postInputs)
         }
