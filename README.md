@@ -30,3 +30,4 @@ l. let's User to Sign in / Sign up
 2. Redux for state Management
 3. Better  Way to show confirmation / error mesaages
 4. Like comment and other things will add soon
+5. A better Text Editor and Pictures to Upload soon
