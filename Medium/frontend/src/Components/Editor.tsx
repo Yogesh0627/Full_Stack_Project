@@ -14,6 +14,7 @@ interface Publish{
   type: string
 }
 
+
 const Editor = ({handleTitleChange,handleTextChange,onClick,buttonTitle,saveClick,type,titleValue,contentValue}:Publish) => {
 
   return (

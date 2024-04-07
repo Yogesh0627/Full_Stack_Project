@@ -8,6 +8,8 @@ import axios from 'axios'
 import { Spinner } from '../Components/Spinner'
 import Navbar from '../Components/Navbar'
 
+// import RTE from '../Components/RTE'
+
 const UpdateBlog = () => {
     const {id} = useParams()
     const {loading,blog,setBlog} = useBlog({id:id ||""})
@@ -23,17 +25,22 @@ const UpdateBlog = () => {
             <Spinner />
         </div>
     </div>
-</div>
-    }
+</div>}
 
         const handleChange = (e: ChangeEvent<HTMLInputElement>)=>{
       
           setBlog({...blog, title : e.target.value})
         }
         const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>)=>{
-      
+
           setBlog({...blog, content : e.target.value})
         }
+
+        //      in case of RTE only
+        // const handleTextChange = (newContent:string)=>{
+      
+        //   setBlog({...blog, content : newContent})
+        // }
       
         const updateBlogRequest = async ()=>{
           try {
@@ -86,6 +93,13 @@ const UpdateBlog = () => {
             buttonTitle={blog.published?'Update & Publish':"Publish"} onClick={blog.published? updateBlogRequest : publishBlogRequest}
             saveClick={handleSave}
         />
+        {/* <RTE handleTitleChange= {handleChange} 
+            titleValue ={blog.title} contentValue = {blog.content} 
+            type={blog.published? "":"new"}
+            handleTextChange = {handleTextChange} 
+            buttonTitle={blog.published?'Update & Publish':"Publish"} onClick={blog.published? updateBlogRequest : publishBlogRequest}
+            saveClick={handleSave}
+        /> */}
     </div>
   )
 }

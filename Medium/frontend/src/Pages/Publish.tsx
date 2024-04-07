@@ -4,6 +4,7 @@ import axios from 'axios'
 import { BACKEND_URL } from '../config'
 import { useNavigate } from 'react-router-dom'
 import { blogInput } from '@yogesh0627/medium-common'
+// import RTE from '../Components/RTE'
 import Editor from '../Components/Editor'
 
 
@@ -26,6 +27,12 @@ const Publish = () => {
 
     setPublishBlog({...publishBlog, content : e.target.value})
   }
+
+  // in case of RTE
+  // const handleTextChange = (newContent:string)=>{
+
+  //   setPublishBlog({...publishBlog, content : newContent})
+  // }
 
 
   const publishBlogRequest = async ()=>{
@@ -64,6 +71,10 @@ const Publish = () => {
       handleTextChange = {handleTextChange} buttonTitle='Publish Post' 
       onClick={publishBlogRequest} saveClick={handleSave}
     />
+    {/* <RTE handleTitleChange= {handleChange} type="new"  
+      handleTextChange = {handleTextChange} buttonTitle='Publish Post' 
+      onClick={publishBlogRequest} saveClick={handleSave}
+    /> */}
   </div>
 )}
 

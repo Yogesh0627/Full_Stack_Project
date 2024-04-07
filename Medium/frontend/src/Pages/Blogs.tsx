@@ -5,8 +5,6 @@ import Skeleton from "../Components/Skeleton"
 import { useEffect } from "react"
 
 
-
-
 const Blogs = () => {
   const {loading,blogs} = useBlogs()
 
@@ -36,14 +34,10 @@ const Blogs = () => {
         <Navbar/>
       </div>
 
-      <div>
-        
-      </div>
       <div className="flex justify-center">
-
           <div className="max-w-xl m-auto mt-10  gap-6">
             {allBlogs}
-        </div>
+          </div>
       </div>
     </div>
   )
