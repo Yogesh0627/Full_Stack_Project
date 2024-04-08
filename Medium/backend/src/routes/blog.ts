@@ -21,7 +21,10 @@ blogRouter.use('/*',async (c,next)=>{
   
   const tokenString = c.req.header('authorization') || ""
   if((!tokenString?.startsWith("Bearer")) || !tokenString){
-    return c.text("Not authorized")
+    return c.json({status:false, 
+      msg:"You are not an authorized person, please sign up / sign in with correct credentials",
+      api:"Api is working fine if you are just testing the end-point"
+    })
   }
   const tokenArray = tokenString?.split(" ")
   const token = tokenArray[1]
