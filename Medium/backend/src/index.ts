@@ -23,7 +23,7 @@ app.route('/api/v1/user',userRouter)
 app.route('/api/v1/blog',blogRouter)
 
 app.get("/",(c)=>{
-  return c.text("Working fine")
+  return c.json({live:true,msg:"Server is Live"})
 })
 
 export default app

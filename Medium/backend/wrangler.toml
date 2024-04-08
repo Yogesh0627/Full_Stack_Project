@@ -3,7 +3,7 @@ compatibility_date = "2023-12-01"
 
 [vars]
 DATABASE_URL="Your Connection string accelerated"
-Jwt_Secret = "YOUR SECRETKEY"
+Jwt_Secret = "YOUR SECRET KEY"
 
 # [vars]
 # MY_VARIABLE = "production_value"

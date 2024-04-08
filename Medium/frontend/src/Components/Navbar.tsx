@@ -9,6 +9,7 @@ const Navbar = () => {
     const { user } = useContext(UserContext);
     const [isMenuOpen, setMenuOpen] = useState(false); // State variable to manage hamburger menu visibility
 
+    // console.log(user)
     const toggleMenu = () => {
         setMenuOpen(!isMenuOpen);
     };

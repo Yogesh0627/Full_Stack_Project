@@ -17,9 +17,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.1",
+    "react-hot-toast": "^2.4.1",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.22.2",
-    "tinymce": "^7.0.0"
+    "tinymce": "^7.0.0",
+    "toast": "^0.5.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",

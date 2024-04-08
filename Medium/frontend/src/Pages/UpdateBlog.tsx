@@ -7,6 +7,7 @@ import { BACKEND_URL } from '../config'
 import axios from 'axios'
 import { Spinner } from '../Components/Spinner'
 import Navbar from '../Components/Navbar'
+import toast from 'react-hot-toast'
 
 // import RTE from '../Components/RTE'
 
@@ -43,34 +44,48 @@ const UpdateBlog = () => {
         // }
       
         const updateBlogRequest = async ()=>{
+          const toastId = toast.loading("Updating & publishing blog")
           try {
             const response = await axios.put(`${BACKEND_URL}/blog/update/${id}`, blog, {
               headers: {
                   Authorization : "Bearer"+" "+localStorage.getItem("token")
       
               }});
-              navigate(`/blogs/${response.data.result.id}`)
-      
+              if (response?.data?.status){
+                toast.success(response?.data?.msg,{id:toastId})
+                navigate(`/blogs/${response?.data?.result?.id}`)
+              }
+              else{
+                toast.error(response?.data?.msg,{id:toastId})
+              }
           } catch (error) {
+            toast.error("Some Error Occured",{id:toastId})
             console.log("An error occured",error)
           }
         }
 
     const handleSave = async ()=>{
+            const toastId = toast.loading("Updating & drafting blog")
             try {
-              const response = await axios.post(`${BACKEND_URL}/blog/save`, blog, {
+              const response = await axios.put(`${BACKEND_URL}/blog/save/${id}`, blog, {
                 headers: {
                     Authorization : "Bearer"+" "+localStorage.getItem("token")
         
                 }});
-                console.log(response)
-                navigate(`/blogs/${response.data.result.id}`)
-        
+                // console.log(response)
+                if(response?.data?.status){
+                  toast.success(response?.data?.msg,{id:toastId})
+                  navigate(`/blogs/${response?.data?.result?.id}`)
+                }else{
+                  toast.error(response?.data?.msg,{id:toastId})
+                }
             } catch (error) {
+              toast.error("Some Error Occured",{id:toastId})
               console.log("An error occured",error)
             }
           }
     const publishBlogRequest = async ()=>{
+            const toastId = toast.loading("Publishing")
             try {
               const response = await axios.post(`${BACKEND_URL}/blog`, blog, {
                 headers: {
@@ -78,9 +93,16 @@ const UpdateBlog = () => {
         
                 }});
                 console.log(response)
-                navigate(`/blogs/${response.data.result.id}`)
+                if(response?.data?.status){
+                  toast.success(response?.data?.msg,{id:toastId})
+                  navigate(`/blogs/${response?.data?.result?.id}`)
+                }
+                else{
+                  toast.error(response?.data?.msg,{id:toastId})
+                }
         
             } catch (error) {
+              toast.error("Some Error Occured",{id:toastId})
               console.log("An error occured",error)
             }
           }

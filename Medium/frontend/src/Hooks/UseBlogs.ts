@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { BACKEND_URL } from "../config"
 import axios from "axios"
 
+
 export interface Blog {
     "content": string;
     "title": string;
@@ -14,6 +15,7 @@ export interface Blog {
     }
 }
 export const useBlogs  = ()=>{
+
     const [loading,setLoading] = useState(false)
     const [blogs,setBlogs] = useState<Blog[]>([])
 
@@ -21,14 +23,18 @@ export const useBlogs  = ()=>{
    
     useEffect( ()=>{
         setLoading(true)
+
         try {
+            // console.log(token)
             axios.get(`${BACKEND_URL}/blog/bulk`,{
                 headers : {
-                    // Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoYXVoYW55b2dlc2g5NTBAZ21haWwuY29tIiwiaWQiOiJlZDA0ZGQxNi00YTEwLTRiMzctYmQwMi1jMTY2OTkyMGM0ZTAifQ.Gb_7pimB1QjyuA6fIFLS66h8NmCIMxRRbR_AaA9D340"
-                    Authorization : "Bearer"+" "+localStorage.getItem("token")
+                    Authorization : "Bearer"+" "+ localStorage.getItem("token") 
+                    // Authorization : "Bearer"+" "+ token
                 }
                 
-            }).then(response=>{
+            }).then(response =>{
+                
+                // console.log(response)
                 setBlogs(response.data.result)
                 setLoading(false)
             })
@@ -101,6 +107,11 @@ export const useMyBlogs = ()=>{
       return {myblogs,loading,setMyBlogs}
 }
 
+
+/*
+
+for getting all the user details
+
 interface User{
     id   :string,
     email :string,
@@ -108,6 +119,7 @@ interface User{
     name    :string,
     posts  :  []
 }
+
 export const useUserDetails = ()=>{
     const [userDetails,setUserDetails] = useState<User>()
     const [loading,setLoading] = useState<boolean>(false)
@@ -123,7 +135,9 @@ export const useUserDetails = ()=>{
     return {loading,userDetails}
 }
 
-// 293f71a9-1bba-4719-97dd-36c5f97f43e7
+*/
+
+
 
 
 

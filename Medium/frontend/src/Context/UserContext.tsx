@@ -35,6 +35,7 @@ const initialUserDetails = {
   
   
     const handleUser = (user:User) =>{
+      console.log(user)
       setUser(user)
     }
     return (

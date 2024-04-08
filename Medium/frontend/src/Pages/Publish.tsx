@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { blogInput } from '@yogesh0627/medium-common'
 // import RTE from '../Components/RTE'
 import Editor from '../Components/Editor'
+import toast from 'react-hot-toast'
 
 
 const initialState = {
@@ -37,6 +38,7 @@ const Publish = () => {
 
   const publishBlogRequest = async ()=>{
     try {
+      const toastId = toast.loading("Publishing")
       const response = await axios.post(`${BACKEND_URL}/blog`, publishBlog, {
         headers: {
             // Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoYXVoYW55b2dlc2g5NTBAZ21haWwuY29tIiwiaWQiOiJlZDA0ZGQxNi00YTEwLTRiMzctYmQwMi1jMTY2OTkyMGM0ZTAifQ.Gb_7pimB1QjyuA6fIFLS66h8NmCIMxRRbR_AaA9D340"
@@ -44,13 +46,21 @@ const Publish = () => {
 
         }});
         console.log(response)
-        navigate(`/blogs/${response.data.result.id}`)
+        if (response?.data?.status){
+          toast.success(response?.data?.msg,{id:toastId})
+          navigate(`/blogs/${response?.data?.result?.id}`)
+        }
+        else{
+          toast.error(response?.data?.msg,{id:toastId})
+        }
 
     } catch (error) {
+      toast.error("Some unknown error occured")
       console.log("An error occured",error)
     }
   }
   const handleSave = async ()=>{
+    const toastId = toast.success("Drafting")
     try {
       const response = await axios.post(`${BACKEND_URL}/blog/save`, publishBlog, {
         headers: {
@@ -59,9 +69,16 @@ const Publish = () => {
 
         }});
         console.log(response)
-        navigate(`/blogs/${response.data.result.id}`)
+      if(response?.data?.status){
+        toast.success(response?.data?.msg,{id:toastId})
+        navigate(`/blogs/${response?.data?.result?.id}`)
+      }
+      else{
+        toast.error(response?.data?.msg,{id:toastId})
+      }
 
     } catch (error) {
+      toast.error("Some Error Occured")
       console.log("An error occured",error)
     }
   }

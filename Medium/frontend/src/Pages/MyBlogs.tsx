@@ -9,6 +9,7 @@ import { BACKEND_URL } from '../config'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
 
 const MyBlogs = () => {
@@ -46,8 +47,8 @@ const MyBlogs = () => {
 
     navigate(`update/${id}`)
   }
-  const handleDelete = async (blogId:string)=>{
 
+  const handleDelete = async (blogId:string)=>{
 
     try {
       const response = await axios.delete(`${BACKEND_URL}/blog/${blogId}`,{
@@ -58,10 +59,14 @@ const MyBlogs = () => {
       // console.log("response after delte :-",response)
       if(response.data.status === true){
         const myNewBlogs = myblogs.filter((blog) => blog.id !== blogId)
+        toast.success(response?.data?.msg)
         setMyBlogs(myNewBlogs)
+      }else{
+        toast.error('Blog not deleted / Not found ')
       }
     } catch (error) {
-      console.log("some Error occureed",error)  
+      console.log("some Error occureed",error)
+      toast.error("Some Error Occured")
     }
   }
 
