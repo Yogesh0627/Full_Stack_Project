@@ -1,6 +1,7 @@
 import Navbar from './Navbar'
 import { ChangeEvent } from 'react'
 import {Editor } from '@tinymce/tinymce-react';
+import { TINY_MCE_KEY } from '../config';
 
 interface Publish{
   handleTitleChange : (e:ChangeEvent<HTMLInputElement>)=>void
@@ -30,7 +31,7 @@ const RTE = ({handleTitleChange,handleTextChange,onClick,buttonTitle,saveClick,t
       <div>
       <Editor
       initialValue={contentValue}
-      apiKey='2hmd8qg5pp4f9okwvc3y6a2o4q1n99b1qpk7s3j4mf7609aw'
+      apiKey={TINY_MCE_KEY}
       init={{
         branding:false,
         initialValue: contentValue,

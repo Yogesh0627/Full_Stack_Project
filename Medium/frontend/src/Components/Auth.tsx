@@ -3,7 +3,7 @@ import Input from "./Input"
 import { ChangeEvent, useContext, useState } from "react"
 import { signInBody, } from "@yogesh0627/medium-common"
 import axios from "axios"
-import { BACKEND_URL } from "../config"
+import { BACKEND_URL, guestInputs } from "../config"
 import { AuthContext } from "../Context/AuthContext"
 import { UserContext } from "../Context/UserContext"
 import toast from "react-hot-toast"
@@ -14,11 +14,7 @@ const postInputs = {
     email:"",
     password:""
 }
-const guestInputs ={
-    name:"Guest_User",
-    email:"guest_user@gmail.com",
-    password:"guest@123"
-}
+
 const Auth = ({type}:{type: "signup" | "signin"}) => {
     const [inputs,setInputs] = useState<signInBody>(postInputs)
     const navigate = useNavigate()
